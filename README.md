@@ -1,2 +1,2 @@
-# Cheatsheet
-A wikipedia containing cheatsheet for general tools
+# CheatSheet
+A repository containing cheatsheets written in Markdown for general tools
