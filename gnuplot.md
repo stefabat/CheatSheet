@@ -73,3 +73,13 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
 #### Set global styles
 
     help set style                              # to see all possible things that can be set
+
+### Guidelines for publication quality plots
+
+For (simple) plots, using vector graphics (i.e. eps, ps, pdf) is the best choice, for images one would usually prefer raster graphics (tiff format above all, or alternatively **high quality** png or jpeg). The size of the picture is very important, because the editor will probably rescale it to fit it into the article, hence the closer the image is to the *correct* size, the more likely it will be as we expect it to be in the final version of the article. For a single column figure, use the setting `set size 0.67,0.67`. For color figures, use `set terminal postscript eps enhanced solid color 'Helvetica' 16`, note however that if we want the text parsed by Latex, we don't need to set the font (I think..). Always check the journal website for other format recommendations.
+
+#### Some external resources (from where most of the content has been taken)
+
+<http://vergil.chemistry.gatech.edu/resources/figures.html>  
+<https://github.com/damarquezg/Tools-Cheat-Sheet/wiki/Gnuplot>  
+<http://alvinalexander.com/technology/gnuplot-charts-graphs-examples>  
