@@ -12,12 +12,12 @@ Note that all commands given below which specify an axis, such as `xrange` or `x
 
     set terminal                    # shows the available terminals
     set terminal qt <n>             # plot to the qt gui number <n>, different numbers -> different windows!
-    set terminal dumb               # plot to the terminal!
-    set terminal pdf                # print to pdf (cairo)
-    set terminal eps                # print to eps (cairo)
-    set terminal postscript         # print to postscript (no cairo)
-    set terminal cairolatex eps     # print to eps the figure and create a tex file for the text
-    set terminal cairolatex pdf     # print to pdf the figure and create a tex file for the text
+    set terminal dumb               # plot to the terminal (awesome!!)
+    set terminal pdf                # render the plot in a pdf file (using cairo)
+    set terminal eps                # render the plot in an eps (using cairo)
+    set terminal postscript         # render the plot in a postscript file (no cairo)
+    set terminal epslatex           # plot (w/o text) in an eps file and create a tex file which render the text using Latex
+    set terminal cairolatex pdf     # same as above but creates a pdf. (Note however that I was not able to use it..)
 
 #### Output stream
 
@@ -40,8 +40,8 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     splot g(x,y)                                # plot the g(x,y) with lines
     splot g(x,y) with pm3d                      # plot the g(x,y) as a surface
     plot [xmin:xmax] [ymin:ymax] 'datafile'     # plot within a certain range
-    replot f(x)                                 # superimpose the plot of f(x) to the previous plot
-    plot 'datafile' u 1:2, '' u 1:3             # plot simultaneously two sets of data points
+    replot f(x)                                 # superimpose the plot of f(x) to the previous plot (only in interactive mode!!)
+    plot 'datafile' u 1:2, '' u 1:3             # plot simultaneously two sets of data points (preferred way!! Required for Latex!)
     plot 'datafile' u 1:2 with linespoints      # plot data points with points and lines
     plot 'datafile' u 1:2 with lp ls 2          # plot data points with points and lines of style number 2 (ls = linestyle)
     plot 'datafile' u 1:2 with lp lt 2          # plot data points with points and lines of type number 2 (lt = linetype)
@@ -74,7 +74,7 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     set key Left                                # left justify text in the legend (there is discrepancy between qt and eps terminals)
     set key Left width -<k>                     # reduces the spacing between the text and the symbol/line
     set key samplen <k>                         # controls length of lines/symbols in the legend (default is 4!)
-    set key at x,y                              # put the legend exactly where you want it
+    set key at <x>,<y>                          # put the legend exactly where you want it
     set label 'bla bla' at <x>,<y>              # put a label at <x>,<y> where x,y, refers to values in the plot
 
 #### Various helpful commands
@@ -117,8 +117,38 @@ Bright colors
 
 ### Guidelines for publication quality plots
 
-For (simple) plots, using vector graphics (i.e. eps, ps, pdf) is the best choice, for images one would usually prefer raster graphics (tiff format above all, or alternatively **high quality** png or jpeg). The size of the picture is very important, because the editor will probably rescale it to fit it into the article, hence the closer the image is to the *correct* size, the more likely it will be as we expect it to be in the final version of the article. For a one-column figure the max width is around 8.25 cm, while for a two-column figure the min width is around 10.5 cm and the max around 16 cm. To set the size, either use `set size <x>cm,<y>cm` or in the terminal line `terminal ... size <x>cm,<y>cm`. For color figures, use `set terminal cairolatex pdf color colortext`.  
+For (simple) plots, using vector graphics (i.e. eps, ps, pdf) is the best choice, for images one would usually prefer raster graphics (tiff format above all, or alternatively **high quality** png or jpeg). The size of the picture is very important, because the editor will probably rescale it to fit it into the article, hence the closer the image is to the *correct* size, the more likely it will be as we expect it to be in the final version of the article. For a one-column figure the max width is around 8.25 cm, while for a two-column figure the min width is around 10.5 cm and the max around 16 cm. To set the size, either use `set size <x>cm,<y>cm` or in the terminal line `terminal ... size <x>cm,<y>cm`. For colored figures, use `set terminal epslatex color colortext`.  
 Always check the journal website for other format recommendations!
+
+### How to include the created figures in a Latex document
+
+Let us assume in the folder containing the main Latex document there is a 'figures' subfolder. We put there both the eps and tex files generated by gnuplot and in the main Latex document we add in the preamble the following lines of code
+
+    \usepackage{color}                          # enables the use of colors in the plot
+    \usepackage{graphicx}                       # enable to include figures in your document
+    \graphicspath{{./figures/}}                 # add to the path the subfolder such that it can find the figure
+                                                # note that the extra braces {} are necessary as well as the last slash /
+
+Now, inside the document environment, to include the figure without rescaling, use
+
+    \begin{figure}
+        \centering
+        \input{figures/my_figure.tex}
+        \caption{Bla bla bla.}
+        \label{fig:my_fig}
+    \end{figure}
+
+If we want to scale the figure, we need to do a small trick in order to maintain the font size consistent with the rest of the document
+
+    \begin{figure}
+        \centering
+        \fontsize{16}{16}           % adjust it according to how much we scale the figure
+        \resizebox{8cm}{!}{\input{figures/my_figure.tex}}   % the {!} maintains the aspect ratio
+        \caption{Bla bla bla.}
+        \label{fig:my_fig}
+    \end{figure}
+
+However, as explained above, it is strongly advice to generate the figure using gnuplot already with the right dimension, such that there is no need to rescale it, or if there is rescaling is minimal and there is no need to adapting the font size accordingly.
 
 #### Some external resources (from where most of the content has been taken)
 
