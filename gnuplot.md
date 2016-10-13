@@ -42,14 +42,15 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     plot [xmin:xmax] [ymin:ymax] 'datafile'     # plot within a certain range
     replot f(x)                                 # superimpose the plot of f(x) to the previous plot
     plot 'datafile' u 1:2, '' u 1:3             # plot simultaneously two sets of data points
-    plot 'datafile' with linespoints            # plot data points with points and lines
-    plot 'datafile' with lp ls 2                # plot data points with points and lines of style number 2 (ls = linestyle)
-    plot 'datafile' with lp lt 2                # plot data points with points and lines of type number 2 (lt = linetype)
-    plot 'datafile' with lines lw 3             # plot data points with lines of width 3
-    plot 'datafile' with l lc rgb '#e69f00'     # plot data points with lines of color #e69f00
-    plot 'datafile' with points ps 4            # plot data points with points of size 4
-    plot 'datafile' with p pt 7                 # plot data points with points of type 7
-    plot 'datafile' with p lc rgb 'blue'        # plot data points with points of blue color
+    plot 'datafile' u 1:2 with linespoints      # plot data points with points and lines
+    plot 'datafile' u 1:2 with lp ls 2          # plot data points with points and lines of style number 2 (ls = linestyle)
+    plot 'datafile' u 1:2 with lp lt 2          # plot data points with points and lines of type number 2 (lt = linetype)
+    plot 'datafile' u 1:2 with lines lw 3       # plot data points with lines of width 3
+    plot 'datafile' u 1:2 lc rgb '#e69f00'      # plot data points with lines of color #e69f00
+    plot 'datafile' u 1:2 with points ps 4      # plot data points with points of size 4
+    plot 'datafile' u 1:2 with p pt 7           # plot data points with points of type 7
+    plot 'datafile' u 1:2 with p lc rgb 'blue'  # plot data points with points of blue color
+    plot 'datafile' u 1:(27.21*$2)              # plot data points, scaling the y data by 27.21
 
 #### Fitting
 
@@ -64,22 +65,64 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     set xlabel 'Can contain \Latex code'        # set the axis label (Latex available using cairolatex term)
     set xtics xmin,dx,xmax                      # set tics from xmin to xmax every dx
     set xtics add (8,12,14,20)                  # set tics at those specific positions
+    set xtics nomirror                          # remove tics on the opposite border
 
-#### Title, legend
+#### Title, legend, labels
 
     set title 'The title of the figure'         # set the title
     set key off                                 # turn legend off (on by default)
+    set key Left                                # left justify text in the legend (there is discrepancy between qt and eps terminals)
+    set key Left width -<k>                     # reduces the spacing between the text and the symbol/line
+    set key samplen <k>                         # controls length of lines/symbols in the legend (default is 4!)
+    set key at x,y                              # put the legend exactly where you want it
+    set label 'bla bla' at <x>,<y>              # put a label at <x>,<y> where x,y, refers to values in the plot
 
-#### Set global styles
+#### Various helpful commands
 
-    help set style                              # to see all possible things that can be set
+    help set style                              # to see all possible things that can be set to modify line, points, ...
+    show linetype <n>                           # show the settings for linetype <n>
+    test                                        # show capabilities of actual terminal, useful for deciding point type
+
+#### Colors
+
+    show colors                                 # show all the predefined colors
+
+###### Built-in colors pairings (dark / bright)
+
+    forest-green / web-green
+    dark-orange / light-red
+    royalblue / skyblue
+
+###### Numix darkest palette
+Dark colors
+
+    linecolor rgb '#555555'                     # black  
+    linecolor rgb '#9c3528'                     # red    
+    linecolor rgb '#61bc3b'                     # green  
+    linecolor rgb '#f3b43a'                     # yellow
+    linecolor rgb '#0d68a8'                     # blue   
+    linecolor rgb '#744560'                     # magenta
+    linecolor rgb '#288e9c'                     # cyan   
+    linecolor rgb '#a2a2a2'                     # white  
+Bright colors
+
+    linecolor rgb '#888888'                     # black  
+    linecolor rgb '#d64937'                     # red    
+    linecolor rgb '#86df5d'                     # green  
+    linecolor rgb '#fdd75a'                     # yellow
+    linecolor rgb '#0f75bd'                     # blue   
+    linecolor rgb '#9e5e83'                     # magenta
+    linecolor rgb '#37c3d6'                     # cyan   
+    linecolor rgb '#f9f9f9'                     # white  
 
 ### Guidelines for publication quality plots
 
-For (simple) plots, using vector graphics (i.e. eps, ps, pdf) is the best choice, for images one would usually prefer raster graphics (tiff format above all, or alternatively **high quality** png or jpeg). The size of the picture is very important, because the editor will probably rescale it to fit it into the article, hence the closer the image is to the *correct* size, the more likely it will be as we expect it to be in the final version of the article. For a single column figure, use the setting `set size 0.67,0.67`. For color figures, use `set terminal postscript eps enhanced solid color 'Helvetica' 16`, note however that if we want the text parsed by Latex, we don't need to set the font (I think..). Always check the journal website for other format recommendations.
+For (simple) plots, using vector graphics (i.e. eps, ps, pdf) is the best choice, for images one would usually prefer raster graphics (tiff format above all, or alternatively **high quality** png or jpeg). The size of the picture is very important, because the editor will probably rescale it to fit it into the article, hence the closer the image is to the *correct* size, the more likely it will be as we expect it to be in the final version of the article. For a one-column figure the max width is around 8.25 cm, while for a two-column figure the min width is around 10.5 cm and the max around 16 cm. To set the size, either use `set size <x>cm,<y>cm` or in the terminal line `terminal ... size <x>cm,<y>cm`. For color figures, use `set terminal cairolatex pdf color colortext`.  
+Always check the journal website for other format recommendations!
 
 #### Some external resources (from where most of the content has been taken)
 
 <http://vergil.chemistry.gatech.edu/resources/figures.html>  
 <https://github.com/damarquezg/Tools-Cheat-Sheet/wiki/Gnuplot>  
 <http://alvinalexander.com/technology/gnuplot-charts-graphs-examples>  
+<https://chemistry.osu.edu/~foster.281/gnuplot/gnuplot_tutorial3_files/gp_manip.html>  
