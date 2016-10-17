@@ -59,6 +59,7 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
 #### Axes, grids, ranges, labels, tics, ...
 
     set grid                                    # set a grid in the background of the plot
+	set size square								# set square ratio for the plot
     set xzeroaxis                               # set a dotted line as the x-axis
     set xzeroaxis linetype -1                   # adding linetype -1 makes it the same as the border lines
     set xrange [xmin:xmax]                      # set x range from xmin to xmax
@@ -76,6 +77,14 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     set key samplen <k>                         # controls length of lines/symbols in the legend (default is 4!)
     set key at <x>,<y>                          # put the legend exactly where you want it
     set label 'bla bla' at <x>,<y>              # put a label at <x>,<y> where x,y, refers to values in the plot
+
+#### Multiplot: tip & tricks
+
+	set multiplot layout <n>,<m>				# set <n> rows with <m> plots each
+	set lmargin <val>							# set a fixed size margin
+	set rmargin <val>							# this is helpful if we want to put tics or label
+	set bmargin <val>							# only on one axis, it keep the plot size constant!
+	unset label									# if labels are set on one plot, need to be unset otherwise appear on next plot too!
 
 #### Various helpful commands
 
