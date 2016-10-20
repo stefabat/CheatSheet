@@ -101,6 +101,7 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     forest-green / web-green
     dark-orange / light-red
     royalblue / skyblue
+	dark-goldenrod / light-goldenrod
 
 ###### Numix darkest palette
 Dark colors
@@ -128,6 +129,7 @@ Bright colors
 
 For (simple) plots, using vector graphics (i.e. eps, ps, pdf) is the best choice, for images one would usually prefer raster graphics (tiff format above all, or alternatively **high quality** png or jpeg). The size of the picture is very important, because the editor will probably rescale it to fit it into the article, hence the closer the image is to the *correct* size, the more likely it will be as we expect it to be in the final version of the article. For a one-column figure the max width is around 8.25 cm, while for a two-column figure the min width is around 10.5 cm and the max around 16 cm. To set the size, either use `set size <x>cm,<y>cm` or in the terminal line `terminal ... size <x>cm,<y>cm`. For colored figures, use `set terminal epslatex color colortext`.  
 Always check the journal website for other format recommendations!
+Another useful tip: Use different line styles (dashed, dotted, ...) in addition to colors for the curves, in a print-out in black and white, colors are not distinguishable! Moreover, in the captions, do not refer to colors but to positions or line styles, for the same reason!
 
 ### How to include the created figures in a Latex document
 
