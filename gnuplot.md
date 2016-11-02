@@ -67,6 +67,7 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     set xtics xmin,dx,xmax                      # set tics from xmin to xmax every dx
     set xtics add (8,12,14,20)                  # set tics at those specific positions
     set xtics nomirror                          # remove tics on the opposite border
+    set xtics ('lab' 0, 'lab2' 2, ...)          # set tics with specific labels (strings!)
 
 #### Title, legend, labels
 
