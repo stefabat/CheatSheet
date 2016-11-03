@@ -90,6 +90,10 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
 	set bmargin <val>							# only on one axis, it keep the plot size constant!
 	unset label									# if labels are set on one plot, need to be unset otherwise appear on next plot too!
 
+Small trick to center multiplots inside LaTex using only one ylabel on the left and keeping the plots with the same size:
+set lmargin to a sufficiently large value to accomodate the ylabel, set rmargin to a value close to 0.0,
+then unset ylabel and/or ytics after the first plot
+
 #### Various helpful commands
 
     help set style                              # to see all possible things that can be set to modify line, points, ...
