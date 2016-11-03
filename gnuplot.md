@@ -51,6 +51,8 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     plot 'datafile' u 1:2 with p pt 7           # plot data points with points of type 7
     plot 'datafile' u 1:2 with p lc rgb 'blue'  # plot data points with points of blue color
     plot 'datafile' u 1:(27.21*$2)              # plot data points, scaling the y data by 27.21
+    set xrange [xmin:xmax] \ set sample <n>     # plot f(x) only at <n> uniformly distributed points in the defined range
+    \ plot f(x)
 
 #### Fitting
 
@@ -68,6 +70,7 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     set xtics add (8,12,14,20)                  # set tics at those specific positions
     set xtics nomirror                          # remove tics on the opposite border
     set xtics ('lab' 0, 'lab2' 2, ...)          # set tics with specific labels (strings!)
+    set ylabel 'bla' offset <val>               # positive values move the label closer to the axis
 
 #### Title, legend, labels
 
