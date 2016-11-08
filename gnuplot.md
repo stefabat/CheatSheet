@@ -67,7 +67,8 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     set xrange [xmin:xmax]                      # set x range from xmin to xmax
     set xlabel 'Can contain \Latex code'        # set the axis label (Latex available using cairolatex term)
     set xtics xmin,dx,xmax                      # set tics from xmin to xmax every dx
-    set xtics add (8,12,14,20)                  # set tics at those specific positions
+    set xtics add (8,12,14,20)                  # add tics at those specific positions
+    set mxtics <freq>                           # set minor tics at <freq> between major ones
     set xtics nomirror                          # remove tics on the opposite border
     set xtics ('lab' 0, 'lab2' 2, ...)          # set tics with specific labels (strings!)
     set ylabel 'bla' offset <val>               # positive values move the label closer to the axis
@@ -76,6 +77,7 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
 
     set title 'The title of the figure'         # set the title
     set key off                                 # turn legend off (on by default)
+    set key invert                              # invert order of legend
     set key Left                                # left justify text in the legend (there is discrepancy between qt and eps terminals)
     set key Left width -<k>                     # reduces the spacing between the text and the symbol/line
     set key samplen <k>                         # controls length of lines/symbols in the legend (default is 4!)
