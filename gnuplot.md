@@ -53,6 +53,8 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     plot 'datafile' u 1:2 with p lc rgb 'blue'  # plot data points with points of blue color
     plot 'datafile' u 1:(27.21*$2)              # plot data points, scaling the y data by 27.21
     set sample <n>                              # number of points in the defined xrange (useful for finer/coarser plots)
+    plot x < 7 ? sin(x) : x < 10 ? 0 : 1/0      # conditional plots. 1/0 stands for nothing is plotted
+    plot 2+sin(x) with filledcurve y1=0         # plot the function and fill below the function until y=0
 
 #### Fitting
 
