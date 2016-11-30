@@ -7,6 +7,7 @@ To plot data points store in 'datafile', the data should be organized in columns
 At any moment, if you need help just type `help` and choose the topic, and the subtopic if needed. Pressing Enter without typing anything will exit from the help pages. Every setting that can be `set` can also be `unset`. **All commands can be abbreviated by the first unique letters**, if there is ambiguity, gnuplot will complain.
 Typing `quit` will exit from the gnuplot shell. Typing `reset` will `unset` **all** settings to their default values. Typing `save 'filename'` will save everything to disk, and `load 'filename'` will restore everything back. Typing `history` will show you the history of all your typed in commands. Typing `test` will show an overview of the line styles and line types set. Typing `show <setting>` will print the value assigned to that particular `<setting>`.
 Note that all commands given below which specify an axis, such as `xrange` or `xlabel` are also valid for the y and z axis (when applicable) and are thus not written explicitly.
+Be aware that gnuplot works like FORTRAN, e.g. a division between integers will remain an integer! `9/8 = 1` while `9.0/8.0 = 1.125`!!!
 
 #### Set the terminal
 
@@ -51,8 +52,7 @@ After we have opened a file with `set output 'outfile'` and written in it, it is
     plot 'datafile' u 1:2 with p pt 7           # plot data points with points of type 7
     plot 'datafile' u 1:2 with p lc rgb 'blue'  # plot data points with points of blue color
     plot 'datafile' u 1:(27.21*$2)              # plot data points, scaling the y data by 27.21
-    set xrange [xmin:xmax] \ set sample <n>     # plot f(x) only at <n> uniformly distributed points in the defined range
-    \ plot f(x)
+    set sample <n>                              # number of points in the defined xrange (useful for finer/coarser plots)
 
 #### Fitting
 
